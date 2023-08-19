@@ -1,6 +1,7 @@
 from app import db
 import uuid
 
+# obtaining users addressess
 class Address(db.Model):
     __tablename__ = "address"
     id = db.Column(db.Integer, primary_key=True)
