@@ -2,6 +2,7 @@ from app import db
 
 from app.models.editor.customer import Customer
 
+# obtaining compant oreders
 class CompanyOrders(db.Model):
     __tablename__ = "company_orders"
     id = db.Column(db.Integer, primary_key=True)
