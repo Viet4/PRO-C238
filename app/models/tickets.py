@@ -1,6 +1,7 @@
 from app import db
 import uuid
 
+# obtaining users tickets/help stuff
 class Tickets(db.Model):
     __tablename__ = "tickets"
     id = db.Column(db.Integer, primary_key=True)
