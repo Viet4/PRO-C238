@@ -2,6 +2,7 @@ from app import db
 
 from app.models.editor.supplier import Supplier
 
+# obtaining compant products
 class CompanyProducts(db.Model):
     __tablename__ = "company_products"
     id = db.Column(db.Integer, primary_key=True)
