@@ -7,16 +7,19 @@ from werkzeug.utils import secure_filename
 from app import db
 import os
 
+# creating api
 api = Blueprint('api', __name__, url_prefix="/api")
 
 UPLOAD_FOLDER = os.path.abspath("app/static/attachments")
 
+#login route with json resquests for email and password
 @api.route('/login', methods=['POST'])
 def login():
     try:
         email = request.json.get('email')
         password = request.json.get('password')
 
+        # for either one is blank then error
         query = f"(select * from users where email='{email}' and password='{password}');"
         if not all((email, password)):
             return jsonify({
@@ -25,6 +28,7 @@ def login():
             }), 400
         user = db.engine.execute(query).first()
 
+        # if email and password work, success
         if user:
             session["email"] = email
             session["user_id"] = user[0]
@@ -44,6 +48,7 @@ def login():
         }), 400
 
 @api.route("/logout", methods=["POST"])
+#logs the user out by setting email and user_id to none
 def logout():
     try:
         session["email"] = None
@@ -59,6 +64,7 @@ def logout():
             "message": str(e)
         }), 400
 
+# adds address with a bunch a json requests
 @api.route("/add-address", methods=["POST"])
 def add_address():
     try:
@@ -82,6 +88,7 @@ def add_address():
             "message": str(e)
         }), 400
 
+# adds order with email and product and adress
 @api.route("/create-order", methods=["POST"])
 def create_order():
     try:
@@ -103,6 +110,7 @@ def create_order():
             "message": str(e)
         }), 400
 
+#submit help request
 @api.route("/submit-help", methods=["POST"])
 def submit_help():
     title = request.form.get("title")
@@ -121,10 +129,12 @@ def submit_help():
             }, 201
         )
 
+# downloads file names (images)
 @api.route("/download/<path:filename>")
 def download(filename):
     return send_file(os.path.join(UPLOAD_FOLDER, filename), as_attachment=True)
 
+#shows users all their orders and allows to search for it
 @api.route("/search-order")
 def search_order():
     order_id = request.args.get("order_id")
@@ -142,6 +152,7 @@ def search_order():
         "orders": orders
     }), 200
 
+# something
 @api.route("/execute", methods=["POST"])
 def execute():
     try:
@@ -169,6 +180,7 @@ def execute():
             "message": str(e)
         }), 400
 
+# gets data from a dataset full of different customers
 @api.route("/get-customer")
 def get_customer():
     try:
