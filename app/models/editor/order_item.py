@@ -3,6 +3,7 @@ from app import db
 from app.models.editor.company_orders import CompanyOrders
 from app.models.editor.company_products import CompanyProducts
 
+# obtaining compant ordered items
 class OrderItems(db.Model):
     __tablename__ = "order_items"
     id = db.Column(db.Integer, primary_key=True)
