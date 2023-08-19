@@ -5,6 +5,7 @@ from app.models.address import Address
 from app.models.orders import Orders
 from app.models.tickets import Tickets
 
+# obtaining users users things and info
 class Users(db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True)
