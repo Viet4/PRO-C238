@@ -1,5 +1,6 @@
 from app import db
 
+# obtaining compant suppliers
 class Supplier(db.Model):
     __tablename__ = "suppliers"
     id = db.Column(db.Integer, primary_key=True)
