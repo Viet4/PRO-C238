@@ -11,6 +11,7 @@ views = Blueprint('views', __name__, url_prefix="/")
 
 @views.route('/')
 @cross_origin()
+# login page
 def login():
     try:
         return render_template("/login/login.html")
@@ -22,6 +23,7 @@ def login():
 
 @views.route('/dashboard')
 @cross_origin()
+#dashboard page but needs user_id to work
 def dashboard():
     try:
         query = "select * from products;"
@@ -35,6 +37,7 @@ def dashboard():
 
 @views.route('/profile')
 @cross_origin()
+# shows profile of user_id
 def profile():
     try:
         user_id = request.args.get("id")
@@ -55,6 +58,7 @@ def profile():
 
 @views.route('/order')
 @cross_origin()
+#shows all the orders of the user
 def order():
     try:
         product_id = request.args.get("id")
@@ -76,6 +80,7 @@ def order():
 
 @views.route("/help")
 @cross_origin()
+#help page for them to sumbit help for some reason
 def help_page():
     try:
         return render_template("/help/help.html", user_id=session.get('user_id'))
@@ -87,6 +92,7 @@ def help_page():
 
 @views.route("/editor")
 @cross_origin()
+# some editor page
 def editor():
     try:
         return render_template("/editor/editor.html")
