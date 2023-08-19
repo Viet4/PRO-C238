@@ -4,6 +4,7 @@ import uuid
 from app.models.products import Products
 from app.models.address import Address
 
+# obtaining users orders
 class Orders(db.Model):
     __tablename__ = "orders"
     id = db.Column(db.Integer, primary_key=True)
