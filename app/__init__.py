@@ -6,20 +6,19 @@ from flask_migrate import Migrate
 from dotenv import load_dotenv
 load_dotenv()
 
-
-# instantiate the extensions
+# initiate the extensions
 db = SQLAlchemy()
 
 migrate = Migrate()
 
 def create_app(script_info=None):
 
-    # instantiate the app
+    # initiate the app
     app = Flask(__name__)
     cors = CORS(app)
 
 
-    # set configz
+    # set configs
     app_settings = os.getenv('APP_SETTINGS')
     app.config.from_object(app_settings)
     app.config['CORS_HEADERS'] = 'Content-Type'
@@ -33,10 +32,12 @@ def create_app(script_info=None):
     # register blueprints
     from .views.views import views
     from .api.api import api
-
+    
     app.register_blueprint(views)
     app.register_blueprint(api)
 
+    
+# handles error messages
     @app.errorhandler(400)
     def bad_request(e):
         return jsonify({
@@ -58,6 +59,7 @@ def create_app(script_info=None):
             "error":"this wasn't suppose to happen"
         })
 
+    
     # shell context for flask cli
     @app.shell_context_processor
     def ctx():
