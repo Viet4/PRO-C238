@@ -1,6 +1,7 @@
 from flask.cli import FlaskGroup
 from app import create_app, db
 from flask import current_app
+# importing flask stuff
 
 from datetime import datetime
 import csv
@@ -14,9 +15,11 @@ from app.models.editor.supplier import Supplier
 from app.models.editor.company_products import CompanyProducts
 from app.models.editor.company_orders import CompanyOrders
 from app.models.editor.order_item import OrderItems
+#importing data
 
 cli = FlaskGroup(create_app=create_app)
 
+#data
 user_json = [
 	{
 		"name": "John Doe",
@@ -190,12 +193,15 @@ product_json = [
 	}
 ]
 
+#recreates databsae
 def recreate_db():
 	db.drop_all()
 	db.create_all()
 	db.session.commit()
 
+
 def seeder():
+	#opens up all the datas
 	for user in user_json:
 		Users.create(user.get("name"), user.get("email"), user.get("password"), user.get("contact"))
 
@@ -243,6 +249,7 @@ def seeder():
 			except:
 				pass
 
+
 @cli.command()
 def rsd():
 	# if current_app.config.get('ENV') not in ('development', 'test', 'testing'):
@@ -250,6 +257,7 @@ def rsd():
 	#   return
 	recreate_db()
 	seeder()
+	# calls the 2 functions above
 
 if __name__ == '__main__':
 	cli()
